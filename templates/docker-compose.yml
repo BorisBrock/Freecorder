@@ -1,0 +1,10 @@
+services:
+  freecorder:
+    container_name: freecorder
+    image: borisbrock/freecorder:latest
+    restart: always
+    ports:
+      - "8020:5000"
+    volumes:
+      - /volume1/docker/freecorder/data:/data
+      - /volume1/docker/freecorder/recordings:/recordings

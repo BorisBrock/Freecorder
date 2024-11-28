@@ -1,0 +1,20 @@
+## User Configuration
+
+# Logging configuration: normal or verbose.
+logging: verbose
+
+# Sets the local time zone.
+time_zone: "Europe/Berlin"
+
+# Video stream recorder
+recorder:
+  stream_url: "rtsp://user:pass@192.168.178.199:554/Streaming/Channels/101?transportmode=unicast&profile=Profile_1" # Annke C800 4k
+  clip_duration: "00:15:00" # 15 Minutes
+  max_disk_usage_mb: 80000 # 80 GB
+
+## System Configuration - do not modify!
+
+# Web server configuration.
+webserver:
+  ip:     0.0.0.0       # IP address of the server, usually 0.0.0.0 should work
+  port:   5000          # Port for the web server (default)

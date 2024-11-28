@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Freecorder</title>
+  <meta name="description" content="A simple and efficient 24/7 network video recorder." />
+
+  <!-- Project styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <!-- Pico.css -->
+  <link rel="stylesheet" href="css/pico.pumpkin.min.css" />
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.1/css/all.css" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="container">
+    <div style="display: flex; align-items: center;">
+      <img src="img/logo.svg" height="87" width="100" style="margin-right: 20px;" />
+      <hgroup>
+        <h1>Freecorder</h1>
+        <p>A simple and efficient 24/7 network video recorder.</p>
+      </hgroup>
+    </div>
+  </header>
+  <!-- ./ Header -->
+
+  <!-- Main -->
+  <main class="container">
+
+    <!-- Files table -->
+    <section id="tables">
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <h2>Video Clips</h2>
+        <button style="padding: 5px 15px; margin-bottom: 16px; font-size: 16px; cursor: pointer;"
+          onclick="updateFileList();"><i class="fas fa-arrows-rotate"></i></button>
+      </div>
+      <div class="overflow-auto">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th scope="col">File Name</th>
+              <th scope="col">Size [MB]</th>
+              <th scope="col">Start Time</th>
+              <th scope="col">End Time</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- Rows will be populated by Handlebars.js -->
+          </tbody>
+        </table>
+
+        <!-- Handlebars template -->
+        <script id="row-template" type="text/x-handlebars-template">
+          {{#each files}}
+          <tr>
+            <td><a href="{{baseurl}}api/download?file={{filename}}">{{filename}}</a></td>
+            <td>{{size}}</td>
+            <td>{{startdate}}&emsp;<strong>{{starttime}}</strong></td>
+            <td>{{enddate}}&emsp;<strong>{{endtime}}</strong></td>
+            <td><button onclick="playVideo('{{filename}}');"><i class="fas fa-play"></i></button></td>
+            <td><a href="{{baseurl}}api/download?file={{filename}}"><button><i class="fas fa-download"></i></button></a></td>
+          </tr>
+          {{/each}}
+        </script>
+      </div>
+    </section>
+    <!-- ./ Files table -->
+
+  </main>
+  <!-- ./ Main -->
+
+  <!-- Modal for the video player -->
+  <div id="video-modal" class="modal">
+    <div class="modal-content">
+      <button id="close-btn" onclick="stopVideo();">Close</button>
+      <video id="video-player" controls></video>
+    </div>
+  </div>
+
+  <!-- Include skripts -->
+  <script src="js/handlebars.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
