@@ -11,7 +11,7 @@ The following features make this project unique:
 
 ## Features
 
-- 24/7 continuous video recording from an RSTP stream (IP camera).
+- 24/7 continuous video recording from an RTSP stream (IP camera).
 - Audio and video support.
 - Web interface for browsing all recorded clips.
 - Direct playback of clips via the web interface.
