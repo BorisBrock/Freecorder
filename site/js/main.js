@@ -3,6 +3,7 @@ var gBaseUrl = "";
 
 // Called when index.html has finished loading
 window.addEventListener('DOMContentLoaded', event => {
+    setVersion();
     gBaseUrl = document.baseURI;
     console.log("Setting base URI to " + gBaseUrl);
     updateFileList();
