@@ -28,7 +28,7 @@ If you require these features, take a look at other projects like Frigate, Shino
 
 # Configuration
 
-Create a *config.ym* based on the [template](templates/config.yml). The only thing you *have* to change is the stream URL for your IP camera.
+Create a *config.yml* based on the [template](templates/config.yml). The only thing you *have* to change is the stream URL for your IP camera.
 
 # Deployment
 
