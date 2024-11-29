@@ -88,13 +88,14 @@ def handle_api_download():
 def handle_api_files():
     """Returns the list of available files as a JSON array."""
     try:
-        folder = Path("recordings")
-        files = [{"name": file.name, "size": file.stat().st_size}
-                 for file in folder.glob("*.mp4")
-                 if file.is_file()]
+        mp4_files = [
+            {"name": f, "size": os.path.getsize(os.path.join("/recordings", f))}
+            for f in os.listdir("/recordings") if f.endswith('.mp4')
+        ]
+        mp4_files.sort(key=lambda x: x["name"], reverse=True)
         data = {
             "state": "ok",
-            "files": files
+            "files": mp4_files
         }
         return json.dumps(data)
     except Exception:
