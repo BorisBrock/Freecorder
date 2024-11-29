@@ -1,4 +1,4 @@
-const gVersion = "0.2.0"
+const gVersion = "0.3.1"
 
 // Sets the version number in the UI
 function setVersion() {
