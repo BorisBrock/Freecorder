@@ -5,7 +5,7 @@ echo "Building Docker image"
 docker image build -t freecorder .
 
 echo "Running Docker image"
-docker container run -p 8020:5000 -v $(pwd)/.testdata/data:/data -v $(pwd)/.testdata/recordings:/recordings --rm freecorder
+docker container run -p 5000:5000 -v $(pwd)/.testdata/data:/data -v $(pwd)/.testdata/recordings:/recordings --rm freecorder
 
 echo "Cleaning up"
 echo y | docker image prune
