@@ -65,8 +65,8 @@
             <td>{{size}}</td>
             <td>{{startdate}}&emsp;<strong>{{starttime}}</strong></td>
             <td>{{enddate}}&emsp;<strong>{{endtime}}</strong></td>
-            <td><button onclick="playVideo('{{filename}}');"><i class="fas fa-play"></i></button></td>
-            <td><a href="{{baseurl}}api/download?file={{filename}}"><button><i class="fas fa-download"></i></button></a></td>
+            <td><button class="list-button" onclick="playVideo('{{filename}}');"><i class="fas fa-play"></i></button></td>
+            <td><a href="{{baseurl}}api/download?file={{filename}}"><button class="list-button"><i class="fas fa-download"></i></button></a></td>
           </tr>
           {{/each}}
         </script>
