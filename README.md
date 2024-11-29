@@ -1,6 +1,6 @@
 # Freecorder
 
-Freecorder is minimalistic NVR (Network Video Recorder). It was designed to record IP camera footage 24/7 in a rolling manner. It is simple to set up, runs on almost every platform (Docker or bare metal) and uses very little resources.
+Freecorder is minimalist NVR (Network Video Recorder). It was designed to record IP camera footage 24/7 in a rolling manner. It is simple to set up, runs on almost every platform (Docker or bare metal) and uses very little resources.
 
 ![Screenshot](images/screenshot.png)
 
@@ -28,21 +28,34 @@ If you require these features, take a look at other projects like Frigate, Shino
 
 # Configuration
 
-Todo
+Create a *config.ym* based on the [template](templates/config.yml). The only thing you *have* to change is the stream URL for your IP camera.
 
 # Deployment
 
 ## Via Docker
 
-Todo
+Freecorder is easy to set up with Docker Compose.
+Create a *data* folder (for configuration and logging) and a *recordings* folder (e.g. on a mounted high endurance Micro SD card).
+Place your *config.yml* in the data folder.
 
-## Bare Metal
+```
+services:
+  freecorder:
+    container_name: freecorder
+    image: borisbrock/freecorder:latest
+    restart: always
+    ports:
+      - "8020:5000"
+    volumes:
+      - /volume1/docker/freecorder/data:/data
+      - /volume1/docker/freecorder/recordings:/recordings
+```
 
-Todo
+(see the [Docker Compose template](templates/docker-compose.yml))
 
 # Used Assets and Libraries
 
 The following assets and libraries are used by this project:
 
-- [PicoCSS CSS Framework](https://picocss.com/)
+- [PicoCSS](https://picocss.com/)
 - [ffmpeg](https://ffmpeg.org/)
