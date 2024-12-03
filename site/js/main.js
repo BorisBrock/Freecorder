@@ -14,10 +14,12 @@ function updateFileList() {
     console.log("Updating file list...");
     fetchJSON("api/files").then(jsonData => {
         // Modify the data
+        var dates_set = new Set();
         const processedData = jsonData.files.
             filter(file => file.name != "current.mp4").
             map(file => {
                 const timeStrings = parseTimeString(file.name);
+                dates_set.add(timeStrings[0]);
                 return {
                     filename: file.name,
                     baseurl: gBaseUrl,
@@ -29,6 +31,8 @@ function updateFileList() {
                 };
             });
 
+        // Group the data by date
+
         // Show the data
         const templateSource = document.getElementById('row-template').innerHTML;
         const template = Handlebars.compile(templateSource);
@@ -39,6 +43,14 @@ function updateFileList() {
 
 // Async function to get JSON data from the server
 async function fetchJSON(uri) {
+    // test code
+    return {
+        "files": [
+            { "name": "Rec_2024-12-03_10-00-00_2024-12-03_10-15-00", "size": "124" },
+            { "name": "Rec_2024-12-04_10-15-00_2024-12-04_10-30-00", "size": "125" }
+        ]
+    };
+
     const response = await fetch(gBaseUrl + uri);
     const data = await response.json();
     return data;
