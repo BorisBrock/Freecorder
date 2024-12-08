@@ -41,43 +41,44 @@
         <button style="padding: 5px 15px; margin-bottom: 16px; font-size: 16px; cursor: pointer;"
           onclick="updateFileList();"><i class="fas fa-arrows-rotate"></i></button>
       </div>
-      {{#each groups}}
-      <details>
-        <summary><h4>{{date}}</h4></summary>
-        <div class="overflow-auto">
-          <table class="striped">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">File Name</th>
-                <th scope="col">Size</th>
-                <th scope="col">Start Time</th>
-                <th scope="col">End Time</th>
-              </tr>
-            </thead>
-            <tbody id="table-body">
-              <!-- Rows will be populated by Handlebars.js -->
-            </tbody>
-          </table>
 
-          <!-- Handlebars template -->
-          <script id="row-template" type="text/x-handlebars-template">
-            {{#each files}}
-            <tr>
-              <td><button style="padding: 5px 15px; font-size: 16px; cursor: pointer;" class="list-button" onclick="playVideo('{{filename}}');"><i class="fas fa-play"></i></button></td>
-              <td><a href="{{baseurl}}api/download?file={{filename}}">{{filename}}</a></td>
-              <td>{{size}}</td>
-              <td>{{startdate}} - <strong>{{starttime}}</strong></td>
-              <td>{{enddate}} - <strong>{{endtime}}</strong></td>
-            </tr>
-            {{/each}}
-          </script>
-        </div>
-      </details>
-      {{/each}}
+      <div id="files">
+      </div>
+
+      <!-- Handlebars template -->
+      <script id="row-template" type="text/x-handlebars-template">
+        {{#each groups}}
+        <details>
+          <summary><h4>{{date}}</h4></summary>
+          <div class="overflow-auto">
+            <table class="striped">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">File Name</th>
+                  <th scope="col">Size</th>
+                  <th scope="col">Start Time</th>
+                  <th scope="col">End Time</th>
+                </tr>
+              </thead>
+              <tbody id="table-body">
+                {{#each files}}
+                <tr>
+                  <td><button style="padding: 5px 15px; font-size: 16px; cursor: pointer;" class="list-button" onclick="playVideo('{{filename}}');"><i class="fas fa-play"></i></button></td>
+                  <td><a href="{{baseurl}}api/download?file={{filename}}">{{filename}}</a></td>
+                  <td>{{size}}</td>
+                  <td>{{startdate}} - <strong>{{starttime}}</strong></td>
+                  <td>{{enddate}} - <strong>{{endtime}}</strong></td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </details>
+        {{/each}}
+      </script>
     </section>
     <!-- ./ Files tables -->
-
   </main>
   <!-- ./ Main -->
 

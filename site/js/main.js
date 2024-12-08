@@ -47,7 +47,7 @@ function updateFileList() {
         const templateSource = document.getElementById('row-template').innerHTML;
         const template = Handlebars.compile(templateSource);
         const html = template({ groups: groupedArray });
-        document.getElementById('table-body').innerHTML = html;
+        document.getElementById('files').innerHTML = html;
     });
 }
 
