@@ -14,10 +14,12 @@ function updateFileList() {
     console.log("Updating file list...");
     fetchJSON("api/files").then(jsonData => {
         // Modify the data
+        var dates_set = new Set();
         const processedData = jsonData.files.
             filter(file => file.name != "current.mp4").
             map(file => {
                 const timeStrings = parseTimeString(file.name);
+                dates_set.add(timeStrings[0]);
                 return {
                     filename: file.name,
                     baseurl: gBaseUrl,
@@ -29,11 +31,29 @@ function updateFileList() {
                 };
             });
 
+        // Create groups for each date
+        var groupedArray = [];
+        processedData.forEach(file => {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(file.startdate).toLocaleDateString(undefined, options);
+            const numclips = 0;
+            const headline = "";
+
+            let group = groupedArray.find(item => item.date === date);
+            if (!group) {
+                group = { headline, date, numclips, files: [] };
+                groupedArray.push(group);
+            }
+            group.files.push(file);
+            group.numclips++;
+            group.headline = date + " (" + group.numclips + (group.numclips > 1 ? " clips)" : " clip)");
+        });
+
         // Show the data
         const templateSource = document.getElementById('row-template').innerHTML;
         const template = Handlebars.compile(templateSource);
-        const html = template({ files: processedData });
-        document.getElementById('table-body').innerHTML = html;
+        const html = template({ groups: groupedArray });
+        document.getElementById('files').innerHTML = html;
     });
 }
 
