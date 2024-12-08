@@ -34,13 +34,17 @@ function updateFileList() {
         // Create groups for each date
         var groupedArray = [];
         processedData.forEach(file => {
-            var date = file.startdate;// TODOBBR
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(file.startdate).toLocaleDateString(undefined, options);
+            const numclips = 0;
+
             let group = groupedArray.find(item => item.date === date);
             if (!group) {
-                group = { date, files: [] };
+                group = { date, numclips, files: [] };
                 groupedArray.push(group);
             }
             group.files.push(file);
+            group.numclips++;
         });
 
         // Show the data
