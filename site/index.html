@@ -50,26 +50,28 @@
       <script id="row-template" type="text/x-handlebars-template">
         {{#each groups}}
         <details>
-          <summary>{{date}} ({{numclips}} clips)</summary>
+          <summary>{{headline}}</summary>
           <div class="overflow-auto">
             <table class="striped">
               <thead>
                 <tr>
-                  <th scope="col"></th>
-                  <th scope="col">File Name</th>
-                  <th scope="col">Size</th>
                   <th scope="col">Start Time</th>
                   <th scope="col">End Time</th>
+                  <th scope="col">Size</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody id="table-body">
                 {{#each files}}
-                <tr>
-                  <td><button style="padding: 5px 15px; font-size: 16px; cursor: pointer;" class="list-button" onclick="playVideo('{{filename}}');"><i class="fas fa-play"></i></button></td>
-                  <td><a href="{{baseurl}}api/download?file={{filename}}">{{filename}}</a></td>
-                  <td>{{size}}</td>
                   <td>{{startdate}} - <strong>{{starttime}}</strong></td>
                   <td>{{enddate}} - <strong>{{endtime}}</strong></td>
+                  <td>{{size}}</td>
+                  <td>
+                    <div class="button-container">
+                      <button class="list-button" onclick="playVideo('{{filename}}');"><i class="fas fa-play"></i></button>
+                      <a href="{{baseurl}}api/download?file={{filename}}"><button class="list-button"><i class="fas fa-download"></i></button></a>
+                    </div>
+                  </td>
                 </tr>
                 {{/each}}
               </tbody>

@@ -37,14 +37,16 @@ function updateFileList() {
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const date = new Date(file.startdate).toLocaleDateString(undefined, options);
             const numclips = 0;
+            const headline = "";
 
             let group = groupedArray.find(item => item.date === date);
             if (!group) {
-                group = { date, numclips, files: [] };
+                group = { headline, date, numclips, files: [] };
                 groupedArray.push(group);
             }
             group.files.push(file);
             group.numclips++;
+            group.headline = date + " (" + group.numclips + (group.numclips > 1 ? " clips)" : " clip)");
         });
 
         // Show the data
