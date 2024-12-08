@@ -31,26 +31,28 @@ function updateFileList() {
                 };
             });
 
-        // Group the data by date
+        // Create groups for each date
+        var groupedArray = [];
+        processedData.forEach(file => {
+            var date = file.startdate;// TODOBBR
+            let group = groupedArray.find(item => item.date === date);
+            if (!group) {
+                group = { date, files: [] };
+                groupedArray.push(group);
+            }
+            group.files.push(file);
+        });
 
         // Show the data
         const templateSource = document.getElementById('row-template').innerHTML;
         const template = Handlebars.compile(templateSource);
-        const html = template({ files: processedData });
+        const html = template({ groups: groupedArray });
         document.getElementById('table-body').innerHTML = html;
     });
 }
 
 // Async function to get JSON data from the server
 async function fetchJSON(uri) {
-    // test code
-    return {
-        "files": [
-            { "name": "Rec_2024-12-03_10-00-00_2024-12-03_10-15-00", "size": "124" },
-            { "name": "Rec_2024-12-04_10-15-00_2024-12-04_10-30-00", "size": "125" }
-        ]
-    };
-
     const response = await fetch(gBaseUrl + uri);
     const data = await response.json();
     return data;
