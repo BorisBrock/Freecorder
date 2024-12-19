@@ -25,7 +25,42 @@
     height: auto;
 }
 
+.button-container {
+    display: flex;
+    /* Enable Flexbox */
+    gap: 8px;
+    /* Space between buttons */
+    flex-wrap: wrap;
+    /* Allow wrapping when space is limited */
+}
+
 .list-button {
-    width: 50px;
-    height: 40px
+    width: 40px;
+    height: 40px;
+    padding: 5px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    /* Use flexbox */
+    align-items: center;
+    /* Vertically center the icon */
+    justify-content: center;
+    /* Horizontally center the icon */
+    cursor: pointer;
+}
+
+.fas {
+    margin: 0;
+    /* Ensure no extra spacing around the icon */
+}
+
+
+/* Media query for small screens */
+@media (max-width: 480px) {
+    .button-container {
+        flex-direction: column;
+        /* Stack buttons vertically */
+        gap: 2px;
+        /* Adjust spacing for vertical alignment */
+    }
 }
