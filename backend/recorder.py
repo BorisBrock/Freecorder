@@ -23,7 +23,11 @@ def set_time_zone(tz):
     if tz is None:
         logging.warning("Recorder: Warning: No time zone set")
     else:
-        logging.info(f"Recorder: Setting tme zone to {tz}")
+        if not isinstance(tz, str) or not tz:
+            logging.error("Recorder: Invalid time zone provided")
+            return
+        
+        logging.info(f"Recorder: Setting time zone to {tz}")
         os.environ['TZ'] = tz
         time.tzset()
         logging.info(f"Recorder: Time is now {time.strftime('%X %x %Z')}")
