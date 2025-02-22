@@ -89,16 +89,15 @@ def record_file():
     
     try:
         # Wait for ffmpeg to finish with a timeout
-        seconds = time_to_seconds(clip_duration) + 60
+        seconds = time_to_seconds(clip_duration) + 30
         process.wait(timeout=seconds)
     except subprocess.TimeoutExpired:
         logging.error("ffmpeg process timed out")
         process.terminate()
         process.wait()  # Ensure the process has terminated
 
-    time_string_end = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-
-    if process.returncode == 0:
+    if os.path.exists("recordings/current.mp4"):
+        time_string_end = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         clip_name = f"Rec_{time_string_start}_{time_string_end}.mp4"
         logging.info(f"Clip '{clip_name}' recorded successfully")
         os.rename("recordings/current.mp4", f"recordings/{clip_name}")
