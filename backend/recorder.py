@@ -3,7 +3,7 @@ import time
 import logging
 import subprocess
 import signal
-import shutil
+from datetime import timedelta
 from datetime import datetime
 from pathlib import Path
 
@@ -15,6 +15,11 @@ from config import Config
 config = None
 run = True
 process = None
+
+# Converts a duration string to seconds
+def time_to_seconds(time_str):
+    h, m, s = map(int, time_str.split(':'))
+    return timedelta(hours=h, minutes=m, seconds=s).total_seconds()
 
 
 # Sets the time zone environment variable
@@ -81,8 +86,16 @@ def record_file():
     clip_duration = config.config_data['recorder']['clip_duration']
     command = ["ffmpeg", "-i", stream_url, "-c:v", "copy", "-c:a", "aac",  "-b:a", "128k", "-t", clip_duration, "recordings/current.mp4"]
     process = subprocess.Popen(command)
-    # Wait for ffmpeg to finish
-    process.wait()
+    
+    try:
+        # Wait for ffmpeg to finish with a timeout
+        seconds = time_to_seconds(clip_duration) + 60
+        process.wait(timeout=seconds)
+    except subprocess.TimeoutExpired:
+        logging.error("ffmpeg process timed out")
+        process.terminate()
+        process.wait()  # Ensure the process has terminated
+
     time_string_end = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
     if process.returncode == 0:
