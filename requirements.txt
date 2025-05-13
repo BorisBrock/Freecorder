@@ -1,4 +1,4 @@
-flask==3.1.0
+flask==3.1.1
 PyYAML==6.0.2
 supervisor==4.2.5
 requests==2.32.3
