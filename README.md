@@ -9,6 +9,8 @@ The following features make this project unique:
 - Flexible deployment options: you can run this project bare metal, e.g. on a Rasberry Pi, or deploy it via Docker, e.g. on your NAS.
 - Total simplicity: the user interface is clean, modern, minimalistic and very easy to use.
 
+<a href="https://www.buymeacoffee.com/borisbrock" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 ## Features
 
 - 24/7 continuous video recording from an RTSP stream (IP camera).
