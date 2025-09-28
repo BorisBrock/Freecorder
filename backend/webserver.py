@@ -1,7 +1,5 @@
 import json
 import os
-from datetime import date
-from pathlib import Path
 import shutil
 import logging
 import traceback
@@ -144,7 +142,7 @@ def main():
         datefmt='%Y-%m-%d %H:%M:%S')
 
     # Print version
-    logging.info(f"Starting Freecorder webserver")
+    logging.info("Starting Freecorder webserver")
 
     # Read the configuration from disk
     try:

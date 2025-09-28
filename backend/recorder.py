@@ -129,7 +129,7 @@ def main():
         datefmt='%Y-%m-%d %H:%M:%S')
 
     # Print version
-    logging.info(f"Starting Freecorder recorder")
+    logging.info("Starting Freecorder recorder")
 
     # Read the configuration from disk
     try:
