@@ -1,6 +1,6 @@
-flask==3.1.0
-PyYAML==6.0.2
-supervisor==4.2.5
-requests==2.32.3
+flask==3.1.2
+PyYAML==6.0.3
+supervisor==4.3.0
+requests==2.32.5
 waitress==3.0.2
-Flask-Compress==1.17
+Flask-Compress==1.18
