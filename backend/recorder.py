@@ -94,7 +94,12 @@ def record_file():
     except subprocess.TimeoutExpired:
         logging.error("ffmpeg process timed out")
         process.terminate()
-        process.wait()  # Ensure the process has terminated
+        try:
+            process.wait(timeout=10)  # Wait up to 10 seconds for graceful exit
+        except subprocess.TimeoutExpired:
+            logging.error("ffmpeg did not terminate, killing process")
+            process.kill()
+            process.wait()
 
     if os.path.exists("recordings/current.mp4"):
         time_string_end = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
