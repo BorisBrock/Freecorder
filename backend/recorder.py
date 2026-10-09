@@ -84,8 +84,9 @@ def record_file():
     time_string_start = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     stream_url = config.config_data['recorder']['stream_url']
     clip_duration = config.config_data['recorder']['clip_duration']
-    command = ["ffmpeg", "-i", stream_url, "-c:v", "copy", "-c:a", "aac",  "-b:a", "128k", "-t", clip_duration, "recordings/current.mp4"]
-    process = subprocess.Popen(command)
+    command = ["ffmpeg", "-v", "error", "-i", stream_url, "-c:v", "copy", "-c:a", "aac",  "-b:a", "128k", "-t", clip_duration, "recordings/current.mp4"]
+    stderr_file = open("data/ffmpeg_last_error.txt", "w")
+    process = subprocess.Popen(command, stderr=stderr_file)
     
     try:
         # Wait for ffmpeg to finish with a timeout
@@ -102,13 +103,17 @@ def record_file():
             process.wait()
 
     if os.path.exists("recordings/current.mp4"):
+        stderr_file.close()
         time_string_end = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         clip_name = f"Rec_{time_string_start}_{time_string_end}.mp4"
         logging.info(f"Clip '{clip_name}' recorded successfully")
         os.rename("recordings/current.mp4", f"recordings/{clip_name}")
     else:
+        stderr_file.close()
+        with open("data/ffmpeg_last_error.txt") as f:
+            ffmpeg_error = f.read().strip()
         logging.error(f"ffmpeg failed with exit code {process.returncode}")
-        logging.error(process.stderr)
+        logging.error("ffmpeg reported:\n" + ffmpeg_error)
 
 
 # Main loop
